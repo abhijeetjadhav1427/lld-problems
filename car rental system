@@ -13,6 +13,12 @@ class VehicleInventory{
     public void addVehicle(Vehicle vehicle){}
     public void removeVehicle(Vehicle vehicle){}
 }
+class CarRentalSystem{
+	private List<Store> stores;
+	
+	public Store getStore(Location location){}
+	public Reservation doReservation(Vehicle vehicle, User user){}
+}
 class Store{
     private Location location;
     private VehicleInventory inventory;
@@ -38,7 +44,8 @@ class Reservation{
     private Location pickUpLocation;
     private Location dropLocation;
     
-    public doReservation(Vehicle vehicle, User user){}
+    public void doReservation(Vehicle vehicle, User user){}
+    public void updateReservation(){}
 }
 class Bill{
     private Reservation reservaation;
