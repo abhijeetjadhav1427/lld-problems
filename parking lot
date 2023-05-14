@@ -1,0 +1,102 @@
+class ParkingLot{
+    List<ParkingFloor> floors;
+    List<Entrance> entrances;
+    List<Exit> exits;
+    
+    Address address;
+    String name;
+    
+    public boolean isSpaceAvailable(Vehicle v);
+    public boolean updateParkingAttendant(ParkingAttendant a, int gateId);
+}
+class ParkingFloor{
+    int id;
+    boolean isFull;
+    List<ParkingSpace> parkingSpaces;
+    ParkingDisplayBoard board;
+}
+class Gate{
+    int gateId;
+    ParkingAttendant attendant;
+}
+class Entrance extends Gate{
+    public ParkingTicket getParkingTicket(Vehicle c);
+} 
+class Exit extends Gate{
+    public ParkingTicket payForParking(ParkingTicket ticket, PaymentType type);
+}
+class Address{
+    String country;
+    String city;
+    String street;
+    String zipCode;
+}
+class ParkingSpace{
+    int id;
+    boolean isFree;
+    double costPerHr;
+    Vehicle v;
+    ParkingSpaceType type;
+}
+class ParkingDisplayBoard{
+    Map<ParkingSpaceType,Integer> freeSpotsAvailableMap;
+    public void updateFreeSpotsAvailable(ParkingSpaceType type, int spaces);
+}
+class Account{
+    String name;
+    String email;
+    String password;
+    String empId;
+    Address addr;
+}
+class Admin extends Account{
+    public boolean addParkingFloor(ParkingLot lot, ParkingFloor floor);
+    public boolean addParkingSpace(ParkingFloor floor, ParkingSpace space);
+    public boolean addParkingDisplayBoard(ParkingFloor floor, ParkingDisplayBoard board);
+}
+class ParkingAttendant extends Account{
+    Payment paymentService;
+    public boolean processVehicleEntry(Vehicle v);
+    public boolean processPayment(ParkingTicket ticket, PaymentType type);
+}
+class Vehicle{
+    String licenseNumber;
+    VehicleType type;
+    ParkingTicket ticket;
+    PaymentInfo info;
+}
+class ParkingTicket{
+    int ticketId;
+    int levelId;
+    int spaceId;
+    Date vehicleEntryDate;
+    Date vehicleExitDate;
+    ParkingSpaceType type;
+    double totalCost;
+    ParkingTicketStatus status;
+    
+    public void updateTotalCost();
+    public void updateVehicleExitTime(Date vehicleExitDate);
+}
+public enum PaymentType{
+    CASH, CREDIT_CARD, DEBIT_CARD, UPI;
+}
+public enum ParkingSpaceType{
+    BIKE_PARKING, CAR_PARKING, TRUCK_PARKING;
+}
+class Payment{
+    public PaymentInfo makePayment(ParkingTicket ticket, PaymentType type);
+}
+class PaymentInfo{
+    double amount;
+    Date paymentDate;
+    int transactionId;
+    ParkingTicket ticket;
+    PaymentStatus status;
+}
+public enum ParkingTicketStatus{
+    ACTIVE, PAID;
+}
+public enum PaymentStatus{
+    UNPAID, COMPLETED, DECLINED, CANCELLED, REFUNDED;
+}

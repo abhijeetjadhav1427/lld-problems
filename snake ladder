@@ -1,0 +1,55 @@
+/*
+1- Multi Player game. Played on a grid of size 100. Each cell will have a number.
+2 -Some off the cell will have ladder which will jump to higher number.
+3 -Some cell will have a snake which will take you down to tail number.
+4- Player will in turn roll a die(1-6). Based on the value user will advance.
+User Action -> Dice Roll
+*/
+
+class Game{
+    private Board board;
+    private Deque<User> users;
+    private List<User> winners;
+    private Dies dies;
+    private int winningPos;
+    
+    public void play(){
+        while(users.size() > 0){
+            User first = users.pollFirst();
+            int diesValue = dies.rollDies();
+            board.advances(User, diesValue);
+            if(user.getPosition() == winningPos){
+                winners.add(user);
+            }
+            else{
+                users.addLast(user);
+            }
+        }
+    }
+    public void showWinners(){}
+}
+class Board{
+    private Map<Integer,Integer> snake, ladder;
+    
+    public void addSnake(int st, int end){}
+    public void addLadder(int st, int end){}
+    public void advances(User user, int nxtPos){
+        user.setPosition(user.getPosition()+nxtPos);
+        
+        if(snake.containsKey(user.getPosition())){
+            user.setPosition(snake.get(user.getPosition()));
+        }
+        if(ladder.containsKey(user.getPosition())){
+            user.setPosition(ladder.get(user.getPosition()));
+        }
+    }
+}
+class User{
+    String name;
+    int position;
+}
+class Dies{
+    private int numberOfDies;
+    
+    public int rollDies(){}
+}

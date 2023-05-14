@@ -1,0 +1,70 @@
+/*
+1. The delivery agent brings the package near the system.
+
+2. The agent scans the QR code on the package to retrieve information about the product.
+
+3. Product listing is also there so that when a new product comes, he can list it and decide what sort of storage it can be put in.
+
+4. There are 3 types of storage: Small, Medium, and Large.
+Small packages can be put in medium and large storage. Same for the other storage.
+
+5. When the QR is scanned, the appropriate locker is opened we can put it there.
+
+6. Each locker is at a certain distance from the system, so the system takes care of that as well.
+
+7. We can empty the locker as well.
+
+8. If we want a certain product, we can check in the system and then go to the locker to get that.
+
+*/
+class System{
+    private List<Locker> lockers;
+    private Map<Integer,Product> products;
+    private Map<Product, List<Item>> productInstances;
+    private int freeLockers[] = new int[3];
+    private AddItemInLocker addItemInLocker;
+    
+    public void addProduct(Product product){}
+    public void removeProduct(Item item, Locker locker){}
+    public void addItem(Item item){
+        productInstances.get(item.getProduct()).add(item);
+        addItemInLocker.addItemInLocker(item, lockers);
+    }
+    public Locker getLocker(Product product){}
+}
+class Product{
+    private int id;
+    private String name;
+    private Size size;
+}
+class Item{
+    private int id;
+    private Product product;
+    private Locker locker;
+    
+    public void addLocker(Locker locker){}
+    public void removeLocker(){}
+}
+class Locker{
+    private int id;
+    private Size size;
+    private int distance;
+    private Item product;
+    
+    public void addProduct(Item item){}
+    public void removeProduct(){}
+}
+public enum Size{
+    SMALL, MEDIUM, LARGE;
+}
+interface Stratergy{
+    public void addItemInLocker(Item item, List<Locker> lockers);
+}
+class AddItemInLocker implements Stratergy{
+    public void addItemInLocker(Item item, List<Locker> lockers){
+        Locker locker = findBestLocker(item.getSize(), lockers);
+        item.addLocker(locker);
+        locker.addProduct(item);
+    }
+    private Locker findBestLocker(Size size, List<Locker> lockers){}
+}

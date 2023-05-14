@@ -1,0 +1,84 @@
+class Library{
+    Address address;
+    List<Book> books;
+}
+class Address{
+    int pinCode;
+    String street;
+    String city;
+}
+class Book{
+    int id;
+    String title;
+    List<Author> authors;
+}
+class BookItem extends Book{
+    String barCode;
+    Rack rack;
+    Date publicationDate;
+    Date issueDate;
+}
+class Rack{
+    int number;
+    String rackId;
+}
+class Person{
+    String name;
+}
+class Author extends Person{
+    List<Book> books;
+}
+class SystemUser extends Person{
+    String email;
+    String mobile;
+    Account account;
+}
+class Account{
+    String username;
+    String password;
+}
+class Member extends SystemUser{
+    Search search;
+    BookIssueService service;
+}
+class Librarian extends SystemUser {
+    Search search;
+    BookIssueService service;
+    
+    public void addBook(BookItem book);
+    public void editBook(BookItem book);
+    public void deleteBook(String barcode);
+}
+class BookIssueService{
+    FineService service;
+    
+    public BookReservationDetail getReservation(BookItem book);
+    public BookReservationDetail reverseBook(BookItem book, SystemUser user);
+    public void updateReservation(BookReservationDetail reservation);
+    public BookIssueDetail issueBook(BookItem book, SystemUser user);
+    public BookIssueDetail renewBook(BookItem book, SystemUser user);
+    public BookIssueDetail returnBook(BookItem book, SystemUser user);
+}
+class BookLending{
+    BookItem book;
+    Date issueDate;
+    SystemUser user;
+}
+class BookReservationDetail extends BookLending{
+    ReservationStatus status;
+}
+class BookIssueDetail extends BookLending{
+    Date dueDate;
+}
+class FineService{
+    public Fine calculateFine(BookItem book, SystemUser user, int days);
+}
+class Fine{
+    Date fineDate;
+    BookItem book;
+    SystemUser user;
+    double fineValue;
+}
+public enum ReservationStatus{
+    RESERVED, ISSUED, AVAILABLE, LOST;
+}

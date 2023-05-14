@@ -1,0 +1,56 @@
+class Elevator{
+    Display display;
+    Direction direction;
+    InternalButton intBtn;
+    Status status;
+    void move(int destionation, Direction direction);
+}
+class Display{
+    Direction direction;
+    int floor;
+}
+class ElevatorController{
+    Elevator elevator;
+    PriorityQueue<Integer> minHeap;
+    PriorityQueue<Integer> maxHeap;
+    LinkedList<Integer> q;
+    
+    void acceptNewRequest(int floor, Direction dir);
+    void controller();
+}
+abstract class Button{
+    void buttonPress(int floor, Direction dir);
+}
+abstract class ButtonDispatcher{
+    void submitRequest(int floor, Direction dir);
+}
+class InternalButton extends Button{
+    InternalButtonDispatcher dispatcher;
+    void buttonPress(int floor, Direction dir);
+}
+class InternalButtonDispatcher extends ButtonDispatcher{
+    ElevatorController controllerObj;
+    void submitRequest(int floor, Direction dir);
+}
+class Building{
+    int buildingId;
+    List<Floor> floors;
+}
+class Floor{
+    int floorId;
+    ExternalButton externalButton;
+}
+class ExternalButton extends Button{
+    ExternalButtonDispatcher externalButtonDispatcher;
+    void buttonPress(int floor, Direction dir);
+}
+class ExternalButtonDispatcher extends ButtonDispatcher{
+    List<ElevatorController> controllers;
+    void submitRequest(int floor, Direction dir);
+}
+public enum Direction{
+    UP, DOWN;
+}
+public enum Status{
+    IDLE, MOVING;
+}

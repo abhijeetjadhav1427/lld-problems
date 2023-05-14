@@ -1,0 +1,65 @@
+class Vehicle{
+    private int id;
+    private String number;
+    private String model;
+    private Date manfDate;
+    private int seats;
+    private VehicleType type;
+    private VehicleStatus status;
+}
+class VehicleInventory{
+    List<Vehicle> vehicles;
+    
+    public void addVehicle(Vehicle vehicle){}
+    public void removeVehicle(Vehicle vehicle){}
+}
+class Store{
+    private Location location;
+    private VehicleInventory inventory;
+    private List<Reservation> reserveds;
+    private Reservation reservation;
+    
+    public void setVehicle(Vehicle vehicle){}
+    public Reservation doRreserve(Vehicle vehicle, User user){}
+    public boolean completeReservation(Reservation reservation)
+    public void returnVehicle(Reservation reserved){}
+}
+class Location{
+    private String street;
+    private String zipCode;
+    private String city;
+}
+class Reservation{
+    private Date reservationDate;
+    private Date returnDate;
+    private User user;
+    private Vehicle vehicle;
+    private ReservationStatus status;
+    private Location pickUpLocation;
+    private Location dropLocation;
+    
+    public doReservation(Vehicle vehicle, User user){}
+}
+class Bill{
+    private Reservation reservaation;
+    private double totalBillAmount;
+    private Payment payment;
+    
+    private computeBillAmount(double amount){}
+}
+class Payment{
+    private PaymentMode mode;
+    public void payBill(Bill bill){}
+}
+public enum PaymentMode{
+    CASH, UPI;
+}
+public enum ReservationStatus{
+    SCHEDULED, INPROGRESS, COMPLETED, CANCELLED;
+}
+public enum VehicleType{
+    CAR;
+}
+public enum VehicleStatus{
+    AVAILABLE, NOTAVAILABLE;
+}
