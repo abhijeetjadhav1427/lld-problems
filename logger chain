@@ -1,0 +1,65 @@
+abstract class LogProcessor{
+    LogProcessor logProcessor;
+    LogProcessor(LogProcessor logProcessor){
+        this.logProcessor = logProcessor;
+    }
+    
+    public void log(Log level, String msg){
+        if(logProcessor != null){
+            logProcessor.log(level, msg);
+        }
+    }
+}
+class InfoLogProcessor extends LogProcessor{
+    InfoLogProcessor(LogProcessor logProcessor){
+        super(logProcessor);
+    }
+    
+    public void log(Log level, String msg){
+        if(level == Log.INFO){
+            System.out.println("INFO => " + msg);
+        }
+        else{
+            super.log(level, msg);
+        }
+    }
+}
+class DebugLogProcessor extends LogProcessor{
+    DebugLogProcessor(LogProcessor logProcessor){
+        super(logProcessor);
+    }
+    
+    public void log(Log level, String msg){
+        if(level == Log.DEBUG){
+            System.out.println("DEBUG => " + msg);
+        }
+        else{
+            super.log(level, msg);
+        }
+    }
+}
+class ErrorLogProcessor extends LogProcessor{
+    ErrorLogProcessor(LogProcessor logProcessor){
+        super(logProcessor);
+    }
+    
+    public void log(Log level, String msg){
+        if(level == Log.ERROR){
+            System.out.println("ERROR => " + msg);
+        }
+        else{
+            super.log(level, msg);
+        }
+    }
+}
+enum Log{
+    INFO, DEBUG, ERROR;
+}
+class HelloWorld {
+    public static void main(String[] args) {
+        LogProcessor logger = new InfoLogProcessor(new DebugLogProcessor(new ErrorLogProcessor(null)));
+        logger.log(Log.INFO, "info msg");
+        logger.log(Log.DEBUG, "DEBUG msg");
+        logger.log(Log.ERROR, "error msg");
+    }
+}
