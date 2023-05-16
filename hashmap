@@ -1,0 +1,73 @@
+class HashMap<K, V> {
+    private static final int defaultSize = 16;
+    private static final int MAXIMUM_CAPACITY = 30;
+    private Entry[] hashTable;
+    
+    HashMap(){
+        hashTable = new Entry[defaultSize];
+    }
+    HashMap(int preferredSize){
+        int possibleSize = getNearestSize(preferredSize);
+        hashTable = new Entry[possibleSize];
+    }
+    class Entry<K,V>{
+        public K key;
+        public V value;
+        public Entry next;
+        
+        Entry(K k, V v){
+            this.key = k;
+            this.value = v;
+            this.next = null;
+        }
+    }
+    private int getNearestSize(int size){
+        int n = size-1;
+        n |= n>>>1;
+        n |= n>>>2;
+        n |= n>>>4;
+        n |= n>>>8;
+        n |= n>>>16;
+        return n<0 ? 1: n>=MAXIMUM_CAPACITY ? MAXIMUM_CAPACITY:n+1;
+    }
+    public void put(K key, V value){
+        int hash = key.hashCode()%hashTable.length;
+        if(hashTable[hash] == null){
+            hashTable[hash] = new Entry(key, value);
+        }
+        else{
+            Entry head = hashTable[hash];
+            Entry prev = null;
+            while(head != null){
+                if(head.key == key){
+                    head.value = value;
+                    return;
+                }
+                prev = head;
+                head = head.next;
+            }
+            prev.next = new Entry(key, value);
+        }
+    }
+    public V get(K key){
+        int hash = key.hashCode()%hashTable.length;
+        Entry<K,V> head = hashTable[hash];
+        
+        while(head != null){
+            if(head.key == key) return head.value;
+            head = head.next;
+        }
+        return null;
+    }
+}
+class HelloWorld {
+    public static void main(String[] args) {
+        HashMap<Integer,String> mp = new HashMap<>();
+        mp.put(1, "a");
+        mp.put(17, "c");
+        System.out.println(mp.get(1));
+        mp.put(1, "b");
+        System.out.println(mp.get(1));
+        System.out.println(mp.get(17));
+    }
+}
