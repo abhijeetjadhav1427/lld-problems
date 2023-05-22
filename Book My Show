@@ -1,0 +1,82 @@
+class TheaterController{
+    //https://youtu.be/wCyzvDn3Pp8
+    private List<Theater> theaters;
+    private Map<City, List<Theater>> cityTheaters;
+    
+    public List<Theater> getTheatersByCity(City city){}
+    public Theater getTheaterByName(String theaterName){}
+}
+class Threater{
+    private int id;
+    private List<Show> shows;
+    private List<Screen> screens;
+    private String address;
+    
+    public void addShow(Show show){}
+    public void removeShow(Show show){}
+    public void addScreen(Screen screen){}
+    public void removeScreen(Screen screen){}
+}
+class Show{
+    public int id;
+    public Movie movie;
+    public Date startTime;
+    public Screen screen;
+    public List<Seat> bookedSeats;
+}
+class Screen{
+    public int id;
+    public List<Seat> seats;
+}
+class Seat{
+    public int id;
+    public SeatStatus status;
+    private SeatType type;
+    private int row;
+}
+class Movie{
+    private int id;
+    private String name;
+    private MovieType type;
+    private double movieDuration;
+}
+class MovieController{
+    private Map<City, List<Movie>> cityMovies;
+    private List<Movie> movies;
+    
+    public Movie getMovieByCity(City city){}
+    public List<Movie> getMoviesByName(String movieName){}
+}
+class Booking{
+    private Theater theater;
+    private Show show;
+    private List<Seat> seats;
+    private Payment payment;
+}
+class Payment{
+    private int paymentId;
+    private double amount;
+    private PaymentType type;
+    private PaymentStatus status;
+}
+enum PaymentType{
+    CASH, UPI;
+}
+enum PaymentStatus{
+    FAILED, REFUNDED, COMPLETED;
+}
+enum MovieType{
+    SCI-FI, HORROR, COMEDY;
+}
+enum SeatType{
+    SILVER, PLATINUM, GOLD;
+}
+enum SeatStatus{
+    BOOKED, NOTAVAILABLE;
+}
+class BookMyShow{
+    private TheaterController theaterController;
+    private MovieController movieController;
+    
+    public void createBooking(Show show, Theater theater, List<Seat> seats){}
+}
