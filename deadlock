@@ -1,0 +1,33 @@
+class HelloWorld {
+    public static void main(String[] args) {
+        final String s1 = "Hello";
+        final String s2 = "World";
+        
+        Thread t1 = new Thread(new Runnable(){
+            public void run(){
+                synchronized(s1){
+                    System.out.println("Inside t1, s1 lock");
+                    try { Thread.sleep(1000);} catch (Exception e) {}  
+                    synchronized(s2){
+                        System.out.println("Inside t1, s2 lock");
+                    }
+                }
+            }
+        });
+        
+        Thread t2 = new Thread(new Runnable(){
+            public void run(){
+                synchronized(s2){
+                    System.out.println("Inside t2, s2 lock");
+                    try { Thread.sleep(100);} catch (Exception e) {}  
+                    synchronized(s1){
+                        System.out.println("Inside t2, s1 lock");
+                    }
+                }
+            }
+        });
+        
+        t1.start();
+        t2.start();
+    }
+}
