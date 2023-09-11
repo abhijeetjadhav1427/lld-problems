@@ -1,46 +1,54 @@
+/*
+Requirements:
+1) There should be multiple floors in the parking lot
+2) There should be multiple gates in ths parking lot
+3) There should be parking attendent at each gate
+4) The entry gate should process parking ticket
+5) The Exit gate should process payment on an hourly basis
+6) The parking lot should have parking facility for different types of vehicles
+7) There should be display boards at each floor showing the details of vacant spots on the floor
+*/
+
 class ParkingLot{
-    List<ParkingFloor> floors;
-    List<Entrance> entrances;
-    List<Exit> exits;
-    
-    Address address;
-    String name;
-    
-    public boolean isSpaceAvailable(Vehicle v);
-    public boolean updateParkingAttendant(ParkingAttendant a, int gateId);
+	List<ParkingFloor> parkingFloors;
+	List<Entrance> entrances;
+	List<Exit> exits;
+	
+	public boolean isParkingSpaceAvailable(Vehicle vehicle);
+	public void updateParkingAttendant(ParkingAttendant parkingAttendant, int gatId);
 }
 class ParkingFloor{
-    int id;
-    boolean isFull;
-    List<ParkingSpace> parkingSpaces;
-    ParkingDisplayBoard board;
+	int floorId;
+	boolean isFull;
+	List<ParkingSpace> parkingSpaces;
+	ParkingDisplayBoard displayBoard;
 }
-class Gate{
-    int gateId;
-    ParkingAttendant attendant;
+abstract class Gate{
+	int gateId;
+	ParkingAttendant parkingAttendant;
 }
 class Entrance extends Gate{
-    public ParkingTicket getParkingTicket(Vehicle c);
-} 
+	public ParkingTicket getParkingTicket(Vehicle vehicle);
+}
 class Exit extends Gate{
-    public ParkingTicket payForParking(ParkingTicket ticket, PaymentType type);
+	public ParkingTicket payForParking(ParkingTicket ticket, PaymentType type);
+}
+class ParkingSpace{
+	int spaceId;
+	boolean isEmpty;
+	Vehicle vehicle;
+	double costPerHr;
+	ParkingSpaceType spaceType;
+}
+class ParkingDisplayBoard{
+    Map<ParkingSpaceType,Integer> freeSpotsAvailableMap;
+    public void updateFreeSpotsAvailable(ParkingSpaceType type, int spaces);
 }
 class Address{
     String country;
     String city;
     String street;
     String zipCode;
-}
-class ParkingSpace{
-    int id;
-    boolean isFree;
-    double costPerHr;
-    Vehicle v;
-    ParkingSpaceType type;
-}
-class ParkingDisplayBoard{
-    Map<ParkingSpaceType,Integer> freeSpotsAvailableMap;
-    public void updateFreeSpotsAvailable(ParkingSpaceType type, int spaces);
 }
 class Account{
     String name;
@@ -96,7 +104,4 @@ class PaymentInfo{
 }
 public enum ParkingTicketStatus{
     ACTIVE, PAID;
-}
-public enum PaymentStatus{
-    UNPAID, COMPLETED, DECLINED, CANCELLED, REFUNDED;
 }
