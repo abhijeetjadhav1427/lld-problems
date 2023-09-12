@@ -1,0 +1,44 @@
+class Game{
+	private Board board;
+    private Deque<Player> players;
+
+    public void initializeGame(){}
+    public void addPlayer(Player player){}
+    public String startGame(){}
+    private boolean isWinner(int i, int j, PieceType pieceType){}
+}
+class Player{
+	public String name;
+    public Piece piece;
+    Player(String name, Piece piece){
+        this.name = name;
+        this.piece = piece;
+    }
+}
+class Board{
+	Peace mat[][];
+	
+	Board(int size){
+		mat = new Peace[size][size];
+	}
+	public boolean addPeace(int x, int y, Peace peace);
+}
+class Piece{
+    public PieceType pieceType;
+    Piece(PieceType pieceType){
+        this.pieceType = pieceType;
+    }
+}
+class PieceX extends Piece{
+    PieceX(PieceType pieceType){
+        super(pieceType);
+    }
+}
+class PieceO extends Piece{
+    PieceO(PieceType pieceType){
+        super(pieceType);
+    }
+}
+enum PieceType{
+	X, O
+}
