@@ -1,3 +1,6 @@
+/*
+https://leetcode.com/discuss/interview-question/object-oriented-design/2563167/LLD-or-Low-level-Design-Diagram-or-Elevator-System
+*/
 class Elevator{
     Display display;
     Direction direction;
