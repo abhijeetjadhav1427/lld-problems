@@ -1,0 +1,64 @@
+class Game{
+	private Board board;
+	private Deque<Player> players;
+	private List<Player> winners;
+	private Diace diace;
+	private int winningPosition;
+	
+	public void initializeGame(){}
+	
+	public void startGame(){
+		while(players.size() > 0){
+			Player currentPlayer = players.pollFirst();
+			
+			int diaceValue = diace.rollDiace();
+			board.advances(player, diaceValue);
+			
+			if(player.getCurrentPosition() == winningPosition){
+				winners.add(player);
+			}
+			else{
+				players.add(player);
+			}
+		}
+	}
+	
+	public void displyWinners(){}
+}
+class Board{
+	private Map<Integer, Integer> snakes, ladders;
+	
+	Board(){
+		snakes = new HashMap<>();
+		ladders = new HashMap<>();
+	}
+	
+	public void addSnake(int headPosition, int tailPosition){}
+	public void addLadder(int start, int end){}
+	
+	public void advances(Player player, int nextStep){
+		int currPos = player.getCurrentPosition();
+		int nextPos = currPos + nextStep;
+		
+		if(nextPos > 100){
+			nextPos = 100;
+		}
+		players.setCurrentPosition(nextPos);
+		
+		if(snakes.containsKey(nextPos)){
+			players.setCurrentPosition(snake.get(nextPos));
+		}
+		if(ladders.containsKey(nextPos)){
+			players.setCurrentPosition(ladders.get(nextPos));
+		}
+	}
+}
+class Player{
+	private int position;
+	private String name;
+}
+class Diace{
+	private int numberOfDies;
+	
+	public int rollDiace(){}
+}
