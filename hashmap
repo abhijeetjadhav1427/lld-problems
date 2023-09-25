@@ -1,15 +1,16 @@
 class HashMap<K, V> {
-    private static final int defaultSize = 16;
-    private static final int MAXIMUM_CAPACITY = 30;
+    private static final int defaultSize = 1<<4;
+    private static final int MAXIMUM_CAPACITY = 1<<30;
     private Entry[] hashTable;
     
-    HashMap(){
-        hashTable = new Entry[defaultSize];
-    }
     HashMap(int preferredSize){
         int possibleSize = getNearestSize(preferredSize);
         hashTable = new Entry[possibleSize];
     }
+    HashMap(){
+    	this(defaultSize);
+    }
+    
     class Entry<K,V>{
         public K key;
         public V value;
