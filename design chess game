@@ -1,0 +1,109 @@
+class Game{
+	public GameStatus status;
+	public Color currentColor; // black, white
+	public Player player1;
+	public Player player2;
+	public Board board;
+	public List<Move> moves;
+	
+	public void setupGame(){
+		
+	}
+	public void play(){
+	
+	}
+}
+class Board{
+	public Cell cell[][];
+	
+	public Board(){
+		//initialize Board;
+	}
+	public void move(int x1, int y1, int x2, int y2){
+		
+	}
+}
+class Move{
+	public Color color;
+	public Cell lastStatus;
+	public Cell currentStatus;
+	
+	public boolean isCastling(){
+	}
+}
+class Cell{
+	public Piece piece;
+	public int x;
+	public int y;
+}
+abstract class Piece{
+	public Color color;
+	public Piece(Color color){
+		this.color = color;
+	}
+	public abstract boolean isValidMove(Cell start, Cell end);
+}
+class Pawn extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class Knight extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class Bishup extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class Rook extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class King extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class Queen extends Piece{
+	public Pawn(Color color){
+		super(color);
+	}
+	
+	public boolean isValidMove(Cell start, Cell end){
+		
+	}
+}
+class Player{
+	public String name;
+	public Color color;
+}
+enum GameStatus{
+	COMPLETED, PLAYING, IDLE;
+}
+enum Color{
+	BLACK, WHITE;
+}
