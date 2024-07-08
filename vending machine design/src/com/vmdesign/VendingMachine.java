@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vmdesign.vmstate.State;
 import com.vmdesign.vmstate.impl.IdleState;
+import com.vmdesign.enums.Coin;
 
 public class VendingMachine {
 	private State state;
