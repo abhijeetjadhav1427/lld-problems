@@ -1,42 +1,83 @@
 package com.vmdesign;
 
+import com.vmdesign.vmstate.State;
+
 public class Main {
-	public static void main(String[] args) {
-		BankAccount acc = new BankAccount(100);
 
-		Thread t1 = new Thread(acc);
-		Thread t2 = new Thread(acc);
+    public static void main(String args[]){
 
-		t1.setName("t1");
-		t2.setName("t2");
+        VendingMachine vendingMachine = new VendingMachine();
+        try {
 
-		t1.start();
-		t2.start();
-	}
+            System.out.println("|");
+            System.out.println("filling up the inventory");
+            System.out.println("|");
+
+            fillUpInventory(vendingMachine);
+            displayInventory(vendingMachine);
+
+            System.out.println("|");
+            System.out.println("clicking on InsertCoinButton");
+            System.out.println("|");
+
+            State vendingState = vendingMachine.getVendingMachineState();
+            vendingState.clickOnInsertCoinButton(vendingMachine);
+
+            vendingState = vendingMachine.getVendingMachineState();
+            vendingState.insertCoin(vendingMachine, Coin.NICKEL);
+            vendingState.insertCoin(vendingMachine, Coin.QUARTER);
+           // vendingState.insertCoin(vendingMachine, Coin.NICKEL);
+
+            System.out.println("|");
+            System.out.println("clicking on ProductSelectionButton");
+            System.out.println("|");
+            vendingState.clickOnStartProductSelectionButton(vendingMachine);
+
+            vendingState = vendingMachine.getVendingMachineState();
+            vendingState.chooseProduct(vendingMachine, 102);
+
+            displayInventory(vendingMachine);
+
+        }
+        catch (Exception e){
+            displayInventory(vendingMachine);
+        }
+
+
+    }
+
+    private static void fillUpInventory(VendingMachine vendingMachine){
+        ItemShelf[] slots = vendingMachine.getInventory().getInventory();
+        for (int i = 0; i < slots.length; i++) {
+            Item newItem = new Item();
+            if(i >=0 && i<3) {
+                newItem.setType(ItemType.COKE);
+                newItem.setPrice(12);
+            }else if(i >=3 && i<5){
+                newItem.setType(ItemType.PEPSI);
+                newItem.setPrice(9);
+            }else if(i >=5 && i<7){
+                newItem.setType(ItemType.JUICE);
+                newItem.setPrice(13);
+            }else if(i >=7 && i<10){
+                newItem.setType(ItemType.SODA);
+                newItem.setPrice(7);
+            }
+            slots[i].setItem(newItem);
+            slots[i].setSoldOut(false);
+        }
+    }
+
+    private static void displayInventory(VendingMachine vendingMachine){
+
+        ItemShelf[] slots = vendingMachine.getInventory().getInventory();
+        for (int i = 0; i < slots.length; i++) {
+
+            System.out.println("CodeNumber: " + slots[i].getCode() +
+                    " Item: " + slots[i].getItem().getType().name() +
+                    " Price: " + slots[i].getItem().getPrice() +
+                    " isAvailable: " + !slots[i].isSoldOut());
+        }
+    }
 }
 
-class BankAccount implements Runnable {
-	private int balance;
-
-	BankAccount(int balance) {
-		this.balance = balance;
-	}
-
-	public void run() {
-		makeWithdraw(75);
-		if(balance < 0) {
-			System.out.println("Money overdrawn!!.." + balance);
-		}
-	}
-
-	public void makeWithdraw(int amount) {
-		if (balance >= amount) {
-			System.out.println(Thread.currentThread().getName() + " is about to withdraw!!");
-			balance -= amount;
-			System.out.println(Thread.currentThread().getName() + " has withdrawn " + amount);
-		}
-		else {
-			System.out.println("Sorry not enough balance for " + amount);
-		}
-	}
-}
